@@ -57,7 +57,6 @@ Elemento.prototype = {
         return posicion;
     }
 };
-
 var Marciano = function() {
     Elemento.call(this);
     this.posX = rnd();
@@ -144,13 +143,23 @@ var m = new Marciano();
 var n = new Nave();
 var d = new Disparo(n.posX, n.posY);
 
-window.addEventListener("keypress", function(e) {
+window.addEventListener("keydown", function(e) {
     controles(e);
+});
+document.getElementById('flechaIzquierda').addEventListener("mousedown", function() {
+    n.moverIzquierda();
+    d.moverIzquierda();
+});
+document.getElementById('flechaArriba').addEventListener("mousedown", function() {
+    usarDisparo = true;
+});
+document.getElementById('flechaDerecha').addEventListener("mousedown", function() {
+    n.moverDerecha();
+    d.moverDerecha();
 });
 
 function controles(e) {
     var x = e.which || e.keyCode;
-
     switch (x) {
         case 37:
             n.moverIzquierda();
@@ -165,9 +174,7 @@ function controles(e) {
             n.moverDerecha();
             d.moverDerecha();
             break;
-
         default:
-
     }
 }
 
@@ -175,26 +182,19 @@ function jugar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (m !== null) {
-      d.dibujar();
-      n.dibujar();
+        d.dibujar();
+        n.dibujar();
         m.dibujar();
         m.moverAbajo();
-
-
-        if (d.colision(m)&&d.enVuelo===true) {
+        if (d.colision(m) && d.enVuelo === true) {
             m = new Marciano();
             d = new Disparo(0, 0);
             window.alert("¡¡Has salvado el mundo!!");
         }
-
     }
     if (usarDisparo === true) {
         d.disparar(n, m);
     }
-
-
-
-
     requestAnimationFrame(jugar);
 }
 requestAnimationFrame(jugar);
