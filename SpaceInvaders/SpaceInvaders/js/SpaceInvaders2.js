@@ -3,15 +3,15 @@ var ctx = canvas.getContext("2d");
 var rnd = function() {
     return Math.floor((Math.random() * canvas.width - 10));
 };
-var usarDisparo=false;
+var usarDisparo = false;
 
 var Elemento = function(posX, posY) {
     this.posX = 0;
     this.posY = 0;
     this.velX = 10;
     this.velY = 1;
-    this.ancho = 10;
-    this.alto = 10;
+    this.ancho = 20;
+    this.alto = 20;
     this.color = "#0F0";
 };
 Elemento.prototype = {
@@ -33,25 +33,43 @@ Elemento.prototype = {
             this.posX = 0;
         }
     },
+    colision: function(otro) {
+        if (this.posX + this.ancho < otro.posX) {
+            return false;
+        }
+        if (this.posY + this.alto < otro.posY) {
+            return false;
+        }
+        if (this.posX > otro.posX + otro.ancho) {
+            return false;
+        }
+        if (this.posY > otro.posY + otro.alto) {
+            return false;
+        }
+        return true;
+    },
     setPosition: function(posX, posY) {
         this.posX = posX;
         this.posY = posY;
     },
-    getPosition:function () {
-      posicion=[this.posX,this.posY];
-      return posicion;
+    getPosition: function() {
+        posicion = [this.posX, this.posY];
+        return posicion;
     }
 };
 
 var Marciano = function() {
     Elemento.call(this);
-    this.posX=rnd();
-    this.velY =0.5;
+    this.posX = rnd();
+    this.velY = 0.6;
+    this.vivo = true;
 };
 Marciano.prototype = new Elemento();
 Marciano.prototype.moverAbajo = function() {
     this.posY += this.velY;
     if (this.posY > canvas.height) {
+
+        window.alert("Los marcianos han llegado, ¡¡has perdido!!");
         this.setPosition(rnd(), 0);
     }
 };
@@ -78,7 +96,7 @@ var Disparo = function(posNaveX, posNaveY) {
 
     this.posX = posNaveX + 7;
     this.posY = posNaveY;
-    this.velY=2;
+    this.velY = 3;
 };
 Disparo.prototype = new Elemento();
 Disparo.prototype.dibujar = function() {
@@ -95,11 +113,12 @@ Disparo.prototype.moverArriba = function() {
         this.enVuelo = false;
     }
 };
-Disparo.prototype.disparar = function(objNave) {
+Disparo.prototype.disparar = function(objNave, objMarciano) {
     this.moverArriba();
+    this.colision(objMarciano);
     if (this.enVuelo === false) {
-        this.setPosition(objNave.posX + 7, objNave.posY-7);
-        usarDisparo=false;
+        this.setPosition(objNave.posX + 7, objNave.posY - 7);
+        usarDisparo = false;
     }
 };
 Disparo.prototype.moverDerecha = function() {
@@ -119,11 +138,7 @@ Disparo.prototype.moverIzquierda = function() {
         }
     }
 };
-Disparo.prototype.colision=function (objMarciano) {
-    if (objMarciano.getPosition()==this.getPosition()) {
-        window.alert("¡¡Has salvado el mundo!!");
-    }
-};
+
 /////////////////////---/////////////////////
 var m = new Marciano();
 var n = new Nave();
@@ -143,7 +158,7 @@ function controles(e) {
             break;
         case 38:
 
-            usarDisparo=true;
+            usarDisparo = true;
             break;
 
         case 39:
@@ -158,15 +173,26 @@ function controles(e) {
 
 function jugar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    m.dibujar();
-    d.dibujar();
-    n.dibujar();
-    if (usarDisparo===true) {
-      d.disparar(n);
+
+    if (m !== null) {
+      d.dibujar();
+      n.dibujar();
+        m.dibujar();
+        m.moverAbajo();
+
+
+        if (d.colision(m)&&d.enVuelo===true) {
+            m = new Marciano();
+            d = new Disparo(0, 0);
+            window.alert("¡¡Has salvado el mundo!!");
+        }
 
     }
-    d.colision(m);
-    m.moverAbajo();
+    if (usarDisparo === true) {
+        d.disparar(n, m);
+    }
+
+
 
 
     requestAnimationFrame(jugar);
