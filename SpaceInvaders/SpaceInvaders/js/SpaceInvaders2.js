@@ -143,7 +143,7 @@ var m = new Marciano();
 var n = new Nave();
 var d = new Disparo(n.posX, n.posY);
 
-window.addEventListener("keypress", function(e) {
+window.addEventListener("keydown", function(e) {
     controles(e);
 });
 document.getElementById('flechaIzquierda').addEventListener("mousedown", function() {
