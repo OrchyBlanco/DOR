@@ -1,0 +1,28 @@
+.desaparece,.nueva{
+  float: left;
+  margin: 5px;
+}
+.desaparece:hover,.nueva:hover{
+  cursor: grabbing;
+}
+h3{
+  clear: both;
+}
+#DesapareceRes,#NuevaRes{
+  width: 300px;
+  height: 200px ;
+  border: solid 3px gray;
+}
+
+form{
+  margin: 1em;
+
+}
+label{
+  clear: both;
+  float: left;
+}
+input{
+  border-radius: 5px;
+  float: left;
+}

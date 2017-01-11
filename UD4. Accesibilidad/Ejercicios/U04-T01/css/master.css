@@ -1,0 +1,15 @@
+header {
+  background-color: red;
+}
+article{
+  background-color: yellow;
+}
+#asideIzq{
+  background-color: blue;
+}
+#asideDer{
+  background-color: green;
+}
+footer{
+  background-color: orange;
+}

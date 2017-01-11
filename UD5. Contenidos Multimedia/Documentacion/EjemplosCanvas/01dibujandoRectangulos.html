@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Dibujando rect&aacuote;ngulos</title>
+    <script type="text/javascript">
+        function setup() {
+            var canvas = document.getElementById('forCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+				ctx.strokeRect(0,0,300,300);
+				ctx.strokeStyle = 'rgb(255,0,0)';
+				ctx.strokeRect(0.5,0.5,100,100);
+				ctx.fillRect(20,20,100,100);
+				ctx.fillStyle = 'rgb(0,255,0)';
+				ctx.fillRect(50,50,100,100);
+				ctx.clearRect(80,80,30,30);
+            }
+        }
+    </script>
+  </head>
+  <body onload="setup();">
+    <canvas id="forCanvas" width="300" height="300" style="margin:100px;"></canvas>
+  </body>
+</html>

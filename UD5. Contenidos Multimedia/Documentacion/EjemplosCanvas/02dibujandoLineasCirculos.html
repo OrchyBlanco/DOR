@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Dibujando L&iacuote;neas y C&iacuote;rculos</title>
+    <script type="text/javascript">
+        function setup() {
+            var canvas = document.getElementById('forCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+				ctx.strokeRect(0,0,300,300);
+				ctx.moveTo(20,20);
+				ctx.lineTo(100,100);
+				ctx.lineTo(80,200);
+				ctx.lineTo(200,80);
+				ctx.lineTo(200,200);
+				ctx.lineTo(280,280);
+				ctx.stroke();
+				ctx.fillStyle = 'rgb(255,0,0)';
+				ctx.beginPath();
+				ctx.arc(100,100,16,0, Math.PI*2,false);
+				ctx.fill();
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(170,170,16,0, Math.PI,true);
+				ctx.fill();
+            }
+        }
+    </script>
+  </head>
+  <body onload="setup();">
+    <canvas id="forCanvas" width="300" height="300" style="margin:100px;"></canvas>
+  </body>
+</html>

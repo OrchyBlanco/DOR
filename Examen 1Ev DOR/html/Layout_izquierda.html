@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<style>
+
+html, body {
+    margin: 0px;
+    height: 100%;}
+html{
+  font-size: 16px;
+}
+
+body{
+    font-size: 120%;
+}
+.contenedor {
+
+  display: flex;
+
+  flex-flow: row wrap;
+
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.contenedor > * {
+
+  flex: 1 100%;
+}
+
+header {
+  background: tomato;
+  font-size: 2em;
+  order:1;
+}
+
+aside{
+order:2;
+max-width: 25%;
+flex: 1 auto;
+  font-size: 0.75em;
+
+  background: gold;
+}
+
+article{
+order:3;
+max-width: 75%;
+ background: lightblue;
+}
+footer {
+order:4;  background: lightgreen;
+}
+
+@media  (max-width: 600px) {
+  article{
+    font-size: 75%;
+    max-width: 100%;
+  }
+  aside {
+  display: none;}
+}
+
+
+
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <header class="cabecera">Cabecera</header>
+  <footer class="pie">Pie</footer>
+  <article class="main">
+    <p>
+	La propiedad Flexible Box, o flexbox, de CSS3 es un modo de diseño que permite colocar los elementos de
+	una página para que se comporten de forma predecible cuando el diseño de la página debe acomodarse a diferentes
+	tamaños de pantalla y diferentes dispositivos. Para muchas aplicaciones, el modelo "caja flexible" produce una
+	mejora sobre el modelo "bloque" porque no utiliza la propiedad float, ni hace que los márgenes del contenedor
+	flexible interfieran con los márgenes de sus contenidos.
+	</p>
+  </article>
+  <aside class="Aside">Aside (izquierda)</aside>
+</div>
+</body>
+</html>

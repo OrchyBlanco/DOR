@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>a&ntilde;adir texto</title>
+    <script type="text/javascript">
+        function setup() {
+            var canvas = document.getElementById('forCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+		ctx.fillStyle = 'rgb(255,0,0)';
+		ctx.fillRect(0, 0, 300, 200);
+		ctx.strokeRect(0, 0, 300, 200);
+
+		ctx.fillStyle = 'rgb(255, 255, 255)';
+		ctx.fillRect(10, 60, 280, 130);
+		ctx.strokeStyle = 'rgb(128, 128, 128)';
+		ctx.strokeRect(10, 60, 280, 130);
+		ctx.font = "bold 1.8em sans-serif";
+		ctx.fillText('texto del rectángulo',12,40);
+		ctx.fillStyle = 'rgb(0,0,0)';
+		ctx.font = 'bold 60pt Comic Sans MS';
+		ctx.textAlign = 'center';
+		ctx.fillText('Teide',150,150);
+            }
+        }
+    </script>
+  </head>
+  <body onload="setup();">
+    <canvas id="forCanvas" width="300" height="300"style="margin:100px;"></canvas>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Utilizando Transformaciones</title>
+    <script type="text/javascript">
+        function setup() {
+            var canvas = document.getElementById('forCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+
+		ctx.strokeRect(0, 0, 300, 300);
+
+		//rectangulo1
+		ctx.fillRect(30, 120, 40, 40);
+		ctx.save();
+		ctx.translate(0,20);
+
+		//rectangulo2
+		ctx.fillRect(80, 120, 40, 40);
+		ctx.save();
+		ctx.rotate(0.19);
+
+		//rectangulo3
+		ctx.fillRect(130, 120, 40, 40);
+		ctx.restore();
+
+		//rectangulo4
+		ctx.fillRect(180, 120, 40, 40);
+		ctx.restore();
+		ctx.scale(0.5,0.7);
+
+		//rectangulo5
+		ctx.fillRect(230, 120, 40, 40);
+
+            }
+        }
+    </script>
+  </head>
+  <body onload="setup();">
+    <canvas id="forCanvas" width="300" height="300"style="margin:100px;"></canvas>
+  </body>
+</html>

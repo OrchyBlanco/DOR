@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Ejercicio 4 - Fondos CSS</title>
+        <style type="text/css" media="screen">
+
+        body{
+          background: url(old_paper.jpg) center;
+          background-size: cover;
+        }
+        .examplemultiplebackgroundsa {
+            width: 100%;
+            height: 100%;
+            background: url(decoration.png) top left no-repeat,
+                        url(ribbon.png) bottom right no-repeat;
+                        background-size: 300px,200px,auto;
+        }
+        p{
+          float: right;
+          font-family: arial;
+          font-weight: bold;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="examplemultiplebackgroundsa">
+            <p>Ejercicio de fondos múltiples</p>
+        </div>
+    </body>
+</html>

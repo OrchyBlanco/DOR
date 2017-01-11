@@ -1,0 +1,17 @@
+article nav {
+  border:solid 3px #D64078 ;
+  display: inline-block;
+  vertical-align: top;
+  width: 25%;
+}
+article .column {
+  display: inline-block;
+  vertical-align: top;
+  width: 75%;
+}
+.container{
+  border: solid #6AC5AC 3px;
+}
+article section {
+  border: solid #FDC72F 3px;
+}

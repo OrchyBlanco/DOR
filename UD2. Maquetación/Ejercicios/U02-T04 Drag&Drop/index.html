@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="master.css">
+  <title>DnD</title>
+  <script type="text/javascript" src="master.js">
+
+  </script>
+</head>
+<body>
+  <h2>Drag & Drop</h2>
+
+  <div class="desaparece" id="0" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;acronym&gt;</div>
+  <div class="desaparece" id="1" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;applet&gt;</div>
+  <div class="desaparece" id="2" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;basefon&gt;</div>
+  <div class="desaparece" id="3" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;big&gt;</div>
+  <div class="desaparece" id="4" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;center&gt;</div>
+  <div class="desaparece" id="5" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;dir&gt;</div>
+  <div class="desaparece" id="6" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;font&gt;</div>
+  <div class="desaparece" id="7" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;frame&gt;</div>
+
+  <div class="nueva" id="08" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;article&gt;</div>
+  <div class="nueva" id="09" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;aside&gt;</div>
+  <div class="nueva" id="10" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;figure&gt;</div>
+  <div class="nueva" id="11" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;footer&gt;</div>
+  <div class="nueva" id="12" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;header&gt;</div>
+  <div class="nueva" id="13" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;section&gt;</div>
+  <div class="nueva" id="14" draggable="true" ondragstart="drag(event)" ondragend="dragend(event)">&lt;nav&gt;</div>
+
+  <h3>Etiquetas de desaparecen</h3>
+  <div id="DesapareceRes" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"></div>
+  <h3>Etiquetas nuevas</h3>
+  <div id="NuevaRes" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"></div>
+
+  <form>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre">
+    <label for="apellido">Apellidos:</label>
+    <input type="text" name="apellido" id="apellido">
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email">
+    <label for="web">Dirección de tu web</label>
+    <input type="text" name="web" id="web">
+  </form>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Loopy Art</title>
+<script type="text/javascript">
+
+
+var graphics;  // A graphics context used for drawing on the canvas.
+
+/**
+ * This function is called when the content of the canvas needs to be drawn.
+ * The purpose in this case is to draw a random work of "art".
+ */
+function draw() {
+
+   if (Math.random() < 0.5) {
+         // draw two semi-transparent shapes on a white background.
+         
+      graphics.fillStyle = "white";
+      graphics.fillRect(0,0,600,600);
+      graphics.strokeStyle = "black";
+      graphics.lineWidth = 6;
+      graphics.strokeRect(0,0,600,600);  // draw a black border
+      graphics.lineWidth = 1;
+      
+      graphics.globalAlpha = 0.5;  // 50% transparency
+      graphics.fillStyle = randomSpectralColor();
+      graphics.fillRect(50,50,300,300);
+      graphics.fillStyle = randomSpectralColor();
+      fillCircle(graphics,350,350,200);
+      graphics.globalAlpha = 1.0;  // restore normal transparency: fully opaque
+
+   }
+
+   else {
+         // draw a horizontal and a vertical line at random positions
+         
+      graphics.fillStyle = randomGray();
+      graphics.fillRect(0,0,600,600);
+      
+      graphics.lineWidth = 30 + Math.floor(71*Math.random()); // range 30--100, inclusive
+      var x = Math.floor( 600*Math.random() );  // random horizontal position
+      graphics.strokeStyle = randomColor();
+      strokeLine(graphics,x,0,x,600);  // line from top to bottom, at horizontal position x
+      
+      graphics.lineWidth = 30 + Math.floor(71*Math.random()); // range 30--100, inclusive
+      var y = Math.floor( 600*Math.random() );  // random vertical position
+      graphics.strokeStyle = randomColor();
+      strokeLine(graphics,0,y,600,y);  // line from left edge to right, at vertical position y
+      
+      graphics.lineWidth = 1;  // restore normal line width
+
+   }
+
+} // end of function draw()
+
+
+//--------------------------------------------------------------------------------------------------
+//------------------- This part of the script defines functions that you can use  ------------------
+//------------------------ in addition to the functions built into graphics. -----------------------
+//--------------------------------------------------------------------------------------------------
+
+
+/**
+ *  Draws a line from (x1,y1) to (x2,y2), using the graphics context g.
+ *  Example:  strokeLine( graphics, 100,100, 300,200 );
+ */
+function strokeLine(g,x1,y1,x2,y2) {
+   g.beginPath();
+   g.moveTo(x1,y1);
+   g.lineTo(x2,y2);
+   g.stroke();
+}
+
+
+/**
+ *  Draws a filled-in circle with center at (x,y) and radius r, using graphics context g.
+ *  Example:  fillCircle( graphics, 100,100, 25);
+ */
+function fillCircle(g,x,y,r) {
+   g.beginPath();
+   g.arc(x,y,r,0,2*Math.PI,false);
+   g.fill();
+}
+
+
+/**
+ *  Draws outline of a circle with center at (x,y) and radius r, using graphics context g.
+ *  Example:  strokeCircle( graphics, 100,100, 25);
+ */
+function strokeCircle(g,x,y,radius) {
+   g.beginPath();
+   g.arc(x,y,radius,0,2*Math.PI,false);
+   g.stroke();
+}
+
+
+/**
+ *  This function draws a filled-in polygon, in a specified graphics context.
+ *  This function can be called with 7 or more parameters.  The first parameter is the
+ *  graphics context.  The remaining arguments give the (x,y) coordinates of three or more
+ *  points; each pair of coordinates gives one point.  The general format is
+ *  fillPoly( graphics, x1,y2, x2,y2, x3,y3 ), but you can have more pairs of points.
+ *  This gives a polygon with vertices (x1,y1), (x2,y2), (x3,y3), which is a triangle.
+ *  Example:  fillPoly( graphics, 100,200, 150,300, 100,400, 50,300 );
+ */
+function fillPoly() { 
+    if (arguments.length < 6)
+       return;
+    var g = arguments[0];
+    g.beginPath();
+    g.moveTo(arguments[1],arguments[2]);
+    for (var i = 3; i < arguments.length; i = i + 2) { 
+       g.lineTo(arguments[i],arguments[i+1]);
+    }
+    g.closePath();
+    g.fill();
+}
+
+
+/**
+ *  This function draws the outline of polygon, in a specified graphics context.
+ *  This function can be called with 7 or more parameters.  The first parameter is the
+ *  graphics context.  The remaining arguments give the (x,y) coordinates of three or more
+ *  points; each pair of coordinates gives one point.  The general format is
+ *  fillPoly( graphics, x1,y2, x2,y2, x3,y3 ), but you can have more pairs of points.
+ *  This gives a polygon with vertices (x1,y1), (x2,y2), (x3,y3), which is a triangle.
+ *  Example:  strokePoly( graphics, 100,200, 150,300, 100,400, 50,300 );
+ */
+function strokePoly() { 
+    if (arguments.length < 7)
+       return;
+    var g = arguments[0];
+    g.beginPath();
+    g.moveTo(arguments[1],arguments[2]);
+    for (var i = 3; i < arguments.length; i = i + 2) { 
+       g.lineTo(arguments[i],arguments[i+1]);
+    }
+    g.closePath();
+    g.stroke();
+}
+
+
+/**
+ *  This function draws a filled oval (that is, an ellipse) with center at (x,y),
+ *  with radius horizontalRadius in the x-direction, and with radius
+ *  verticalRadius in the y-direction.  The first parameter is the graphics context.
+ *  Example:  fillOval( graphics, 100,200, 100, 50 );
+ */
+function fillOval(g,x,y,horizontalRadius,verticalRadius) {
+   g.save();
+   g.translate(x,y);
+   g.scale(horizontalRadius,verticalRadius);
+   g.beginPath();
+   g.arc(0,0,1,0,2*Math.PI,false);
+   g.restore();
+   g.fill();
+}
+
+
+/**
+ *  This function draws the outline of an oval (that is, an ellipse) with center at (x,y),
+ *  with radius horizontalRadius in the x-direction, and with radius
+ *  verticalRadius in the y-direction.  The first parameter is the graphics context.
+ *  Example:  strokeOval( graphics, 100,200, 100, 50 );
+ */
+function strokeOval(g,x,y,horizontalRadius,verticalRadius) {
+     // This function draws the circumference of oval (or ellipse) with center at
+     // the point (x,y), with a given horizontal and vertcal radius.
+   g.save();
+   g.translate(x,y);
+   g.scale(horizontalRadius,verticalRadius);
+   g.beginPath();
+   g.arc(0,0,1,0,2*Math.PI,false);
+   g.restore();
+   g.stroke();
+}
+
+
+/**
+ *  This function creates and returns a random CSS color value.  To use it, you
+ *  could say:  graphics.fillStyle = randomColor();
+ *  or:  graphics.strokeStyle = randomColor();
+ */
+function randomColor() {
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+        var randomHex = Math.floor( 16*Math.random() );
+        color = color + randomHex.toString(16);
+    }
+    return color;
+}
+
+
+/**
+ *  This function creates and returns a random CSS grayscale value.  That is, the
+ *  color is a shade of grade in the range from white to black.  To use it, you
+ *  could say:  graphics.fillStyle = randomGray();
+ *  or:  graphics.strokeStyle = randomGray();
+ */
+function randomGray() {
+      // Returns a CSS color string representing a random shade of gray, somewhere
+      // between white and black (inclusive).  To use, say
+      //  graphics.fillStyle = randomGray();  or  graphics.strokeStyle = randomGray();
+   var randomHex = Math.floor(256*Math.random());
+   var s = randomHex.toString(16);
+   if (s.length == 1) {
+      s = "0" + s;
+   }
+   return "#" + s + s + s;
+}
+
+
+/**
+ *  This function creates and returns a random CSS color value, selected the "pure"
+ *  colors, that is, the colors of the spectrum.  Pure colors are as bright and
+ *  saturated as possible.  Not every color is a color of the spectrum.  For example,
+ *  gray, pink, and brown are not.  To use this function, you
+ *  could say:  graphics.fillStyle = randomSpectralColor();
+ *  or:  graphics.strokeStyle = randomSpectralColor();
+ */
+function randomSpectralColor() {
+   var hue = Math.random();
+   var section = Math.floor(hue*6);
+   var fraction = hue*6 - section;
+   var rgb;
+   switch (section) {
+   case 0:
+      r = 1;
+      g = fraction;
+      b = 0;
+      break;
+   case 1:
+      r = 1 - fraction;
+      g = 1;
+      b = 0;
+      break;
+   case 2:
+      r = 0;
+      g = 1;
+      b = fraction;
+      break;
+   case 3:
+      r = 0;
+      g = 1 - fraction;
+      b = 1;
+      break;
+   case 4:
+      r = fraction;
+      g = 0;
+      b = 1;
+      break;
+   case 5:
+      r = 1;
+      g = 0;
+      b = 1 - fraction;
+      break;
+   }
+   var rx = new Number(Math.floor(r*255)).toString(16);
+   if (rx.length == 1)
+      rx = "0" + rx;
+   var gx = new Number(Math.floor(g*255)).toString(16);
+   if (gx.length == 1)
+      gx = "0" + gx;
+   var bx = new Number(Math.floor(b*255)).toString(16);
+   if (bx.length == 1)
+      bx = "0" + bx;
+   var color = "#" + rx + gx + bx;
+   return color;
+}
+
+
+/**
+ *   This function creates and returns a random integer in the range
+ *   A to B, inclusive.  For example, randomInt(5,12) returns one of
+ *   the numbers 5, 6, 7, 8, 9, 10, 11, or 12, selected at random.
+ *   A and B should be integers, with B greater than A.
+ */
+function randomInt(A,B) {
+   return Math.floor( (B-A+1)*Math.random() ) + A;
+}
+
+
+//---------- The init function, which is called when the page has loaded, to do some setup ------
+
+function init() { // to be called by the body's onload event
+   var canvas = document.getElementById("canvas"); // A reference to the canvas element.
+   if ( ! canvas || ! canvas.getContext ) {
+          // This browser apparently does not support canvasses.  Give up!
+      document.getElementById("message").innerHTML = ("Sorry, your browser doesn't support the canvas element.");
+      return;
+   }
+   graphics = canvas.getContext("2d");  // CREATE THE GRAPHICS CONTEXT
+   draw();
+}
+
+</script>
+</head>
+<body onload="init()">
+
+   <noscript><p style="color:red">Sorry, this program requires JavaScript to run.</p></noscript>
+   
+   <h2>Loopy Random Art</h2>
+   
+   <p><b>You'll see a new random work of "art" every time you click the button!<br>
+         
+   <p id="message" style="color:red">&nbsp;</p>
+         
+   <p><button onclick="draw()" id="runpausebutton">More Art, Please!</button></p>
+   
+   <div style="float:left">
+   <canvas id="canvas" width=600 height=600 style="background-color:black"></canvas>
+   </div>
+   
+
+</body>
+</html>

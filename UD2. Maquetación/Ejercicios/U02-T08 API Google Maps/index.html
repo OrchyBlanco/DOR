@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/master.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="js/validaciones.js">
+    </script>
+    <title>Titulo</title>
+</head>
+
+<body onload="getLocation()">
+    <main>
+        <header id="Cabecera">
+          <img id="ImagenAlumno" src="" alt="Imagen alumno">
+          <p>Jesús Manuel Torres Blanco</p>
+          <p>2ºB <em>Desarrollo de Aplicaciones Web </em></p>
+          <p>CIFP César Manrique</p>
+
+        </header>
+        <nav>
+          <ul>
+            <li><a href="#Actividad1">Actividad 1</a></li>
+          </ul>
+        </nav>
+        <section id="Actividad1">
+            <h1>Actividad 1</h1>
+            <article class="ejercicio1">
+                <h2>API de Google Maps</h2>
+
+
+
+<div id="mapholder"></div>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+  +latlon+"&zoom=16&size=400x300&markers=color:yellow%7Clabel:J%7C"+latlon+"&markers=size:mid";
+  document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+}
+
+function showError(error) {
+  switch(error.code) {
+      case error.PERMISSION_DENIED:
+          x.innerHTML = "User denied the request for Geolocation."
+          break;
+      case error.POSITION_UNAVAILABLE:
+          x.innerHTML = "Location information is unavailable."
+          break;
+      case error.TIMEOUT:
+          x.innerHTML = "The request to get user location timed out."
+          break;
+      case error.UNKNOWN_ERROR:
+          x.innerHTML = "An unknown error occurred."
+          break;
+  }
+}
+</script>
+
+            </article>
+            <a href="#Cabecera"><img src="img/flechaCabecera.png" alt="Ir cabecera" witdh="50" height="50"></a>
+        </section>
+
+        <footer>
+          <p>Realizado por: <em>Jesús Manuel Torres Blanco</em></p>
+        </footer>
+    </main>
+</body>
+
+</html>

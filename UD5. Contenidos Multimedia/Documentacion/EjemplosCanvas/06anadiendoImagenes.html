@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>A&ntilde;adiendo Imagenes</title>
+    <script type="text/javascript">
+        function setup() {
+            var canvas = document.getElementById('forCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+				var img = new Image();
+				img.src = 'images/iesCesarManrique.jpg';
+				img.onload = function(){
+					ctx.drawImage(img, 0, 0);
+				}
+
+				
+            }
+        }
+    </script>
+  </head>
+  <body onload="setup();">
+    <canvas id="forCanvas" width="300" height="300"style="margin:100px;"></canvas>
+  </body>
+</html>  

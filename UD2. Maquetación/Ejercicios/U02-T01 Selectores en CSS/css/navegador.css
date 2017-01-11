@@ -1,0 +1,82 @@
+
+nav{
+  width: 665px;
+}
+nav ul {
+    background: #123645;
+    overflow: hidden;
+
+    padding: 1%;
+}
+nav ul:last-child{
+  border-radius: 2.5em;
+}
+nav ul:first-child{
+  padding-left: 1.3em;
+}
+nav ul li {
+    margin: 3%;
+    font-size: 1.2em;
+    float: left;
+    list-style: none;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+nav ul li a:hover{
+  text-decoration: underline;
+  color:#dd6d10;
+}
+
+table{
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid #002F2F;
+  font-family: sans-serif;
+}
+table th{
+  background: #B22222;
+  color: #EFECCA;
+  padding: 0px 10px;
+
+}
+th.CabeceraTabla{
+  padding: 0px 10px 25px;
+  text-transform:capitalize;
+}
+table tr:nth-child(2n+1){
+  background-color:#E0FFFF;
+}
+table tr:nth-child(2n){
+    background-color:#E6E6FA;
+}
+table tr:nth-child(4n+1){
+    background-color:#F5DEB3;
+}
+table tr:nth-child(4n){
+    background-color:#DEB887;
+}
+table td{
+  border-bottom: 1px solid #002F2F;
+}
+
+.LicenciaCC em{
+  color:blue;
+}
+.LicenciaCC li em{
+  font-weight: bold;
+}
+.LicenciaCC em + em{
+  color:red;
+}
+
+.SelectorAtributo font[face]{
+  font-weight: bold;
+}
+.SelectorAtributo font[face="Courier"]{
+  font-style: italic;
+}
+.SelectorAtributo font[face~="serif"]{
+  color: green;
+}
