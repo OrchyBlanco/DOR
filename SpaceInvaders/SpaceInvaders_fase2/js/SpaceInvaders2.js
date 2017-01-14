@@ -140,6 +140,7 @@ Disparo.prototype.moverIzquierda = function() {
 
 /////////////////////---/////////////////////
 var m = new Marciano();
+
 var n = new Nave();
 var d = new Disparo(n.posX, n.posY);
 
@@ -166,10 +167,8 @@ function controles(e) {
             d.moverIzquierda();
             break;
         case 38:
-
             usarDisparo = true;
             break;
-
         case 39:
             n.moverDerecha();
             d.moverDerecha();
@@ -180,10 +179,10 @@ function controles(e) {
 
 function jugar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     if (m !== null) {
         d.dibujar();
         n.dibujar();
+
         m.dibujar();
         m.moverAbajo();
         if (d.colision(m) && d.enVuelo === true) {
