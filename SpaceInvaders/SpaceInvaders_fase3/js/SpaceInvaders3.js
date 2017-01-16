@@ -1,7 +1,7 @@
 //Los siguientes parametros son: ancho,alto,Metodo de rederizado(AUTO,CANVAS,WEBGL),ID del canvas,Nombres de las funciones de Carga,Inicio y actualizacion(loop)
-var ancho=400;
-var alto= 400;
-var rnd=Math.floor((Math.random() * ancho) + 1);
+var ancho=700;
+var alto= 600;
+var rnd=Math.floor((Math.random() * ancho-ancho*0.1) + 1);
 var game=new Phaser.Game(ancho,alto,Phaser.CANVAS,null,{preload:preload,create:create,update:update});
 
 var marciano;
@@ -11,18 +11,24 @@ var nave;
 var disparo;
 var tiempoDisparo = 0;
 
+var explosions;
+var explotarACME;
+//----------------------------------//
+
+//--------------------------------//
 var score=0;
 var scoreText;
 var scoreString="Puntuacion: ";
 function preload() {
-  //game.scale.scaleMode=Phaser.ScaleManager.SHOW_ALL;
-  //game.scale.pageAlingHorizontally=true;
-// game.scale.pageAlingVertically=true;
+  game.scale.scaleMode=Phaser.ScaleManager.SHOW_ALL;
+  game.scale.pageAlingHorizontally=true;
+  game.scale.pageAlingVertically=true;
 
-  game.stage.backgroundColor='#F00';
-  game.load.image('nave','../img/nave.jpg');
-  game.load.image('marciano','../img/alien1a.jpg');
-  game.load.image('disparo','../img/disparob.jpg');
+  game.stage.backgroundColor='#000';
+  game.load.image('nave','img/nave.jpg');
+  game.load.image('marciano','img/alien1a.jpg');
+  game.load.image('disparo','img/disparob.jpg');
+  game.load.spritesheet('explosion','img/explosion.png',96,96,24);
 }
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -33,6 +39,7 @@ function create() {
   game.physics.enable(marciano,Phaser.Physics.ARCADE);
   marciano.body.velocity.set(0,70);
 
+
 //-- Nave --//
   nave=game.add.sprite(ancho*0.5,alto*0.95,'nave');
 
@@ -42,20 +49,26 @@ function create() {
   nave.body.bounce.set(1);
 
 //---Disparos--//
-  disparo=game.add.group();
-  disparo.enableBody=true;
-  disparo.physicsBodyType=Phaser.Physics.ARCADE;
-  disparo.createMultiple(30,'disparo');
-  disparo.setAll('anchor.x', 0.5);
-  disparo.setAll('anchor.y', 1);
-  disparo.setAll('outOfBoundsKill', true);
-  disparo.setAll('checkWorldBounds', true);
+  disparos=game.add.group();
+  disparos.enableBody=true;
+  disparos.physicsBodyType=Phaser.Physics.ARCADE;
+  disparos.createMultiple(30,'disparo');
+  disparos.setAll('anchor.x', 0.5);
+  disparos.setAll('anchor.y', 1);
+  disparos.setAll('outOfBoundsKill', true);
+  disparos.setAll('checkWorldBounds', true);
   //-- CONTROLES --//
   cursors = game.input.keyboard.createCursorKeys();
 
+  //-- Explosiones --//
+   //VER matarMarciano();
+
+
   //-- SCORE --//
-  scoreText=game.add.text(5,3,scoreString+score);
+  scoreText=game.add.text(5,3,scoreString+score,{font: "32px Arial", fill:"#4AFF00"});
+
 }
+
 function update() {
 
     //---------MOVIMIENTO----------//
@@ -79,7 +92,7 @@ function update() {
     //---Game OVER---//
     if (marciano.body.y>alto) {
       window.alert("¡LOS MARCIANOS HAN GANADO!");
-      
+
       marciano=game.add.sprite(rnd,alto*0.1,'marciano');
     }
 }
@@ -88,6 +101,11 @@ function update() {
 //--------------------------*--------------------------//
 
 function matarMarciano(marciano,disparo) {
+  //--EXPLOSION--//
+  explosions=game.add.sprite(marciano.x,marciano.y,'explosion');
+  explotarACME=explosions.animations.add('explotarACME');
+  explosions.animations.play('explotarACME',24,false,true);
+
   marciano.kill();
   disparo.kill();
 
@@ -96,11 +114,17 @@ function matarMarciano(marciano,disparo) {
 
 }
 
+function setupMarciano(marciano) {
+  marciano.anchor.x=0.5;
+  marciano.anchor.y=0.5;
+  marciano.animations.add('explosion');
+}
+
 function disparar() {
   if (game.time.now > tiempoDisparo)
     {
         //  Grab the first bullet we can from the pool
-        disparo = disparo.getFirstExists(false);
+        disparo = disparos.getFirstExists(false);
 
         if (disparo)
         {
