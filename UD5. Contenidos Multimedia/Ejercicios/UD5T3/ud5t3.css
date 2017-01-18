@@ -1,0 +1,13 @@
+
+svg{
+  padding: 1em;
+  border: dashed black 1px;
+}
+circle{
+  margin: 1em;
+}
+.reserva{
+  fill: red;
+  stroke:black;
+  stroke-width:2;
+}
