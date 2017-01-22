@@ -1,0 +1,23 @@
+
+svg{
+  padding: 1em;
+  border: dashed black 1px;
+}
+circle{
+  margin: 1em;
+}
+.reserva{
+  fill: red;
+  stroke:black;
+  stroke-width:2;
+}
+.noAsignado{
+  fill:none;
+  stroke: blue;
+  stroke-width: 2px;
+}
+.noAsignado:hover{
+  fill:yellow;
+  stroke: blue;
+  stroke-width: 2px;
+}
