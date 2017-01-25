@@ -1,8 +1,5 @@
 
-svg{
-  padding: 1em;
-  border: dashed black 1px;
-}
+
 circle{
   margin: 1em;
 }
@@ -19,5 +16,15 @@ circle{
 .noAsignado:hover{
   fill:yellow;
   stroke: blue;
+  stroke-width: 2px;
+}
+.Asignado{
+  fill:green;
+  stroke: blue;
+  stroke-width: 2px;
+}
+.Asignado:hover{
+  fill:orange;
+  stroke: red;
   stroke-width: 2px;
 }
